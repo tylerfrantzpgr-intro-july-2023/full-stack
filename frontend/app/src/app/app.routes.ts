@@ -12,6 +12,13 @@ export const routes: Routes = [
         component: AboutComponent
     },
     {
+        path: 'todos',
+        loadChildren: () =>
+          import('./features/todos/todos.routes').then(
+            (routes) => routes.todosRoutes
+          ),
+      },
+    {
         path: '**',
         redirectTo: 'dashboard'
     }
