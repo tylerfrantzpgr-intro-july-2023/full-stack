@@ -12,7 +12,6 @@ import { CountByComponent } from './components/count-by/count-by.component';
   styleUrls: ['./counter.component.css'],
   imports: [CommonModule, CountByComponent],
 })
-
 export class CounterComponent {
   current = this.store.selectSignal(selectCounterCurrent);
 

@@ -1,7 +1,6 @@
 ﻿
 
 using Marten;
-using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace TodosApi.Controllers;
 
@@ -9,22 +8,17 @@ namespace TodosApi.Controllers;
 public class TodoListController : ControllerBase
 {
 
-    private readonly IDocumentSession _documentSession;
-    private ReadOnlyTagHelperAttributeList IManageTheTodoListCatalog _todoListCatalog;
+    private readonly IManageTheTodolistCatalog _todoListCatalog;
 
-    public TodoListController(IDocumentSession documentSession)
+    public TodoListController(IManageTheTodolistCatalog todoListCatalog)
     {
-        _documentSession = documentSession;
+        this._todoListCatalog = todoListCatalog;
     }
 
     [HttpPost("/todo-list")]
     public async Task<ActionResult> AddTodoItem([FromBody] TodoListCreateModel request)
     {
-
-        // if we get here, this is valid.
-        // add it to the database.
-        TodoListCreateModel response = await _todoListCatalog.AddTodoItemAsync(request);
-        // send it back to them. 
+        var response = await _todoListCatalog.AddTodoItemAsync(request);
         return Ok(response);
     }
 
@@ -33,9 +27,7 @@ public class TodoListController : ControllerBase
     [HttpGet("/todo-list")]
     public async Task<ActionResult> GetTodoList()
     {
-        CollectionResponse<TodoListItemResponseModel> list = await _todoListCatalog.GetFullListAsync();
-
-        // var response = new CollectionResponse<TodoListItemResponseModel>(list);
+        var list = await _todoListCatalog.GetFullListAsync();
         return Ok(list);
     }
 }

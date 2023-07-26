@@ -4,10 +4,6 @@ export type TodoListItemModel = {
   status: TodoListItemStatus;
 };
 
- 
-
 export type TodoListEntryModel = Pick<TodoListItemModel, 'description'>;
-
- 
 
 export type TodoListItemStatus = 'Later' | 'Now' | 'Waiting' | 'Completed';

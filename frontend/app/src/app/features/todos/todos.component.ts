@@ -14,7 +14,6 @@ import { TodosEvents } from './state/todos.actions';
   styleUrls: ['./todos.component.css'],
   imports: [CommonModule, EntryComponent, ListComponent],
 })
-
 export class TodosComponent {
   // This is going to have to come from an API
   // We'll do that tomorrow.
@@ -31,10 +30,9 @@ export class TodosComponent {
   ];
 
   addItem(candidate: TodoListEntryModel) {
-    this.store.dispatch(TodosEvents.itemAdded({payload:candidate}));
+    this.store.dispatch(TodosEvents.itemAdded({ payload: candidate }));
   }
-
   statusChange(payload: TodoListItemModel) {
-    this.store.dispatch(TodosEvents.itemStatusCycled({payload}));
+    this.store.dispatch(TodosEvents.itemStatusCycled({ payload }));
   }
 }
