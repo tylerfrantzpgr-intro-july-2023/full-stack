@@ -36,6 +36,21 @@ export class TodoListEffects {
       )
     );
   });
+
+  cycleStatus$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TodosEvents.itemStatusCycled),
+      mergeMap(({ payload }) =>
+        this.httpClient
+          .post<TodoListItem>(
+            this.API_URL + 'todos-list-status-change',
+            payload
+          )
+          .pipe(map((payload) => TodoDocuments.todo({ payload })))
+      )
+    );
+  });
+  
   constructor(
     private readonly actions$: Actions,
     private readonly httpClient: HttpClient

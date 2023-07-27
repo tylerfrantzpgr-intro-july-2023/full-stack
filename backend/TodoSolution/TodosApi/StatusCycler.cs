@@ -2,20 +2,20 @@
 
 public class StatusCycler : IProvideStatusCycling
 {
+
     public TodoListItemResponseModel ProvideNextStatusFrom(TodoListItemResponseModel savedItem)
     {
-        if (savedItem.Status == TodoItemStatus.Now)
+      
+        var newStatus = savedItem.Status switch
         {
-            return savedItem with { Status = TodoItemStatus.Waiting };
-        }
-        if (savedItem.Status == TodoItemStatus.Waiting )
-        {
-            return savedItem with { Status = TodoItemStatus.Completed };
-        }
-        if (savedItem.Status == TodoItemStatus.Completed)
-        {
-            return savedItem with { Status = TodoItemStatus.Later };
-        }
-        return savedItem with {  Status = TodoItemStatus.Now };
+            TodoItemStatus.Later => TodoItemStatus.Now,
+            TodoItemStatus.Now => TodoItemStatus.Waiting,
+            TodoItemStatus.Waiting => TodoItemStatus.Completed,
+            TodoItemStatus.Completed => TodoItemStatus.Later,
+            _ => TodoItemStatus.Later // Talk about this
+        };
+
+        return savedItem with { Status = newStatus };
     }
 }
+

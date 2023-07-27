@@ -29,6 +29,7 @@ builder.Services.AddMarten(options =>
 
 
 // This says "Hey MVC, if you create anything that needs an IManageTheTodoListCatalog, use the MartinTodoListCatalog
+
 builder.Services.AddTransient<IManageTheTodolistCatalog, MartenTodolistCatalog>();
 // everything above this line is configuring "Services" in our application.
 
@@ -41,6 +42,8 @@ builder.Services.AddCors(options =>
         pol.AllowAnyHeader();
     });
 });
+
+builder.Services.AddTransient<IProvideStatusCycling, StatusCycler>();
 var app = builder.Build();
 // this is configuring the "middleware" - this is code that will see the incoming HTTP request
 // and make a response.

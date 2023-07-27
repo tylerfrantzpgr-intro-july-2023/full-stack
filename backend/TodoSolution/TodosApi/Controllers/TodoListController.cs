@@ -27,7 +27,7 @@ public class TodoListController : ControllerBase
         }
         else
         {
-            return Ok(request);
+            return Ok(response);
         }
 
     }
